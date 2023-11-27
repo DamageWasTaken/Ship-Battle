@@ -13,3 +13,27 @@ if (HP == 0) {
 function shoot() {
     
 }
+
+function ai() {
+
+}
+
+function moveX() {
+
+}
+
+function moveY() {
+
+}
+
+function changeHP() {
+
+}
+
+function reduceSPD() {
+    
+}
+
+while (HP >= 1) {
+
+}
