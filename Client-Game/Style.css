@@ -90,3 +90,8 @@ h2 {
     margin: 0;
     font-family: 'Arimo', sans-serif;
 }
+
+button {
+    border: none;
+    background-color: transparent;
+}
