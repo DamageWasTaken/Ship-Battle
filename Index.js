@@ -35,12 +35,20 @@ function rMINUS() {
 }
 
 
-function moveX() {
-posX = posX+1;
+function moveXP() {
+    posX = posX+1;
 }
 
-function moveY() {
+function moveYP() {
 posY = posY+1;
+}
+
+function moveXM() {
+    posX = posX-1;
+}
+    
+function moveYM() {
+    posY = posY-1;
 }
 
 function changeHP() {
