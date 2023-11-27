@@ -95,3 +95,12 @@ button {
     border: none;
     background-color: transparent;
 }
+
+#bottomButtons {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 6px;
+    width: 100%;
+    justify-content: space-between;
+}
