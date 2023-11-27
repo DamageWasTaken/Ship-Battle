@@ -1,0 +1,92 @@
+:root {
+    --h1: 48px;
+    --h2: 32px;
+    --subtitle: 24px;
+    --p: 18px;
+    --sub: 16px;
+    --small: 14px;
+    --green: #428d2a;
+    --blue: #0000fe;
+    --red: #d31919;
+    --orange: #e78514;
+    --cyan: #157fa4;
+    --fadded: rgba(200, 200, 200, 0.7);
+    --faddedBlack: rgba(0, 0, 0, 0.7);
+}
+
+html {
+    --text: #faeff3;
+    --text2: #000;
+    --bg: #190009;
+    --primary: #e3004f;
+    --secondary: #5a3c60;
+    --accent: #ec2269;
+    --accent2: #260c1a;
+    scroll-behavior: smooth;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 3em 0;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    margin: 0 2%;
+    gap: 4em;
+    width: auto !important;
+    overflow: hidden;
+    font-family: 'Arimo', sans-serif;
+    color: var(--text);
+    background-color: var(--bg);
+    background-image: url('images/photo-1699470672596-b2744968ad5c.jpg');
+}
+
+nav {
+    width: 98vw;
+    display: flex;
+    flex-basis: 0;
+    justify-content: space-between;
+    padding-top: 6px;
+}
+
+* {
+    box-sizing: border-box;
+    scroll-padding-top: 3em;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text);
+}
+
+p {
+    font-size: 18px;
+    letter-spacing: normal;
+    line-height: 150%;
+    font-family: 'Arimo', sans-serif;
+}
+
+h1 {
+    font-size: var(--h1);
+    letter-spacing: -2px;
+    font-weight: 700;
+    margin: 0;
+    font-family: 'Arimo', sans-serif;
+}
+
+h2 {
+    font-size: var(--h2);
+    letter-spacing: -2px;
+    font-weight: 700;
+    margin: 0;
+    font-family: 'Arimo', sans-serif;
+}
