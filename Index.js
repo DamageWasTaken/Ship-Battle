@@ -5,7 +5,7 @@ var SPD = 3;
 var plrdead = false;
 var posX = 0; 
 var posY = 0;
-
+var rotation = 0;
 
 
 function Shoot() {
@@ -16,9 +16,24 @@ function AI() {
 
 }
 
-function Rotate() {
-
+function rPLUS() {
+if (rotation < 360) {
+    rotation = rotation+1;
 }
+else {
+    rotation = 0;
+}
+}
+
+function rMINUS() {
+    if (rotation = 0) {
+        rotation = rotation-1;
+    }
+    else {
+        rotation = 0;
+    }
+}
+
 
 function moveX() {
 posX = posX+1;
