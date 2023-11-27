@@ -10,11 +10,15 @@ if (HP == 0) {
 }
 }
 
-function shoot() {
+function Shoot() {
     
 }
 
-function ai() {
+function AI() {
+
+}
+
+function Rotate() {
 
 }
 
@@ -31,7 +35,7 @@ function changeHP() {
 }
 
 function reduceSPD() {
-    
+
 }
 
 while (HP >= 1) {
