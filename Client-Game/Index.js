@@ -76,5 +76,5 @@ SPD = SPD-1;
 }
 
 while (HP >= 1) {
-
+    break
 }
