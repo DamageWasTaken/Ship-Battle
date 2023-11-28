@@ -9,7 +9,7 @@ var rotation = 0;
 
 
 function Shoot() {
-    
+    l
 }
 
 function AI() {

@@ -46,7 +46,7 @@ body {
     overflow: hidden;
     font-family: 'Arimo', sans-serif;
     color: var(--text);
-    background-image: url('images/photo-1699470672596-b2744968ad5c.jpg');
+        background-image: url('images/photo-1699470672596-b2744968ad5c.jpg');
 }
 
 nav {
