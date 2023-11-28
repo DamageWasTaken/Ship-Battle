@@ -6,14 +6,65 @@ var posX = 0;
 var posY = 0;
 var rotation = 0;
 var speed = 4;
+var cb1x = 0;
+var cb1y = 0;
+var cb1a = 0;
+var cb2x = 0;
+var cb2y = 0;
+var cb2a = 0;
+var playerAngle = 0;
+var canonBall1;
+var canonBall2;
+var interval_cb;
+var repeated = 0;
+var cbia = false;
 
 window.onload = () => {
     player = document.getElementById("player");
+    canonBall1 = document.getElementById("canonBall1");
+    canonBall2 = document.getElementById("canonBall2");
+    canonBall1.style.display = "none";
+    canonBall2.style.display = "none";
+}   
+
+function fierCannons() {
+    if (cbia == false) {
+        canonBall1.style.display = "inline";
+        canonBall2.style.display = "inline";
+        cbia = true;
+        cb1x = posX;
+        cb1y = posY - 60;
+        cb1a = playerAngle + 90;
+        cb2x = posX;
+        cb2y = posY - 60 ;
+        cb2a = playerAngle - 90;
+        canonBall1.style.top = cb1y + "px";
+        canonBall1.style.left = cb1x + "px";
+        canonBall2.style.top = cb2y + "px";
+        canonBall2.style.left = cb1x + "px";
+        
+        interval_cb = setInterval(() => {
+            cb1y += Math.cos(cb1a);
+            cb1x += Math.sin(cb1a);
+            cb2y += Math.cos(cb2a);
+            cb2x += Math.sin(cb2a);
+            canonBall1.style.top = cb1y + "px";
+            canonBall1.style.left = cb1x + "px";
+            canonBall2.style.top = cb2y + "px";
+            canonBall2.style.left = cb2x + "px";
+            repeated++;
+            if (repeated == 200) {
+                cbia = false;
+                repeated = 0;
+                canonBall1.style.display = "none";
+                canonBall2.style.display = "none";
+                clearInterval(interval_cb);
+            }
+        }, 2);
+    }
+
 }
 
-function Shoot() {
-
-}
 
 function AI() {
 
@@ -21,7 +72,7 @@ function AI() {
 
 function movement(x, y, angle) {
     posX += x / speed;
-    posY += y / speed;
+    posY += y / speed;  
     rotation = angle * -1 + 90;
     player.style.top = posY + "px";
     player.style.left = posX + "px";
