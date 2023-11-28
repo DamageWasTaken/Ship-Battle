@@ -22,7 +22,7 @@ function AI() {
 function movement(x, y, angle) {
     posX += x / speed;
     posY += y / speed;
-    rotation = angle - 360;
+    rotation = angle * -1 + 90;
     player.style.top = posY + "px";
     player.style.left = posX + "px";
     player.style.transform = "rotate(" + rotation + "deg)";
