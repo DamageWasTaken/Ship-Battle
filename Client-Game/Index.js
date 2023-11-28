@@ -164,20 +164,28 @@ function is_it_in_the_circle() {
 
 
 function startDrawing(event) {
-    paint = true;
-    getPosition(event);
-    console.log("start");
-    repeatT();
-    if (is_it_in_the_circle()) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        background();
-        joystick(coord.x, coord.y);
-        Draw();
+    var mouse_x = event.clientX || event.touches[0].clientX;
+    var mouse_y = event.clientY || event.touches[0].clientY;
+    var wy = y_orig +  window.scrollY + document.querySelector('#canvas').getBoundingClientRect().top; // Y
+    var wx = x_orig + window.scrollX + document.querySelector('#canvas').getBoundingClientRect().left; // X
+    relativeMouseY = mouse_y - wy;
+    relativeMouseX = mouse_x - wx;
+    if (relativeMouseY < -40 || relativeMouseY > 40 || relativeMouseX < -40 || relativeMouseX > 40) {
+        return;
+    } else {
+        paint = true;
+        getPosition(event);
+        repeatT();
+        if (is_it_in_the_circle()) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            background();
+            joystick(coord.x, coord.y);
+            Draw();
+        }
     }
 }
 
 function repeatT() {
-    console.log("called");
     interval_ = setInterval(() => {
         movement(x_relative, y_relative, angle_in_degrees);
     }, 10);
@@ -193,7 +201,6 @@ function stopDrawing() {
     document.getElementById("y_coordinate").innerText = 0;
     document.getElementById("speed").innerText = 0;
     document.getElementById("angle").innerText = 0;
-    console.log("stop");
     clearInterval(interval_);
 }
 
