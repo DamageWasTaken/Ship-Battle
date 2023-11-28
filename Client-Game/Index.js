@@ -10,15 +10,65 @@ var angle_in_degrees = 0;
 var x_relative = 0;
 var y_relative = 0;
 var interval_;
-
+var cb1x = 0;
+var cb1y = 0;
+var cb1a = 0;
+var cb2x = 0;
+var cb2y = 0;
+var cb2a = 0;
+var playerAngle = 0;
+var canonBall1;
+var canonBall2;
+var interval_cb;
+var repeated = 0;
+var cbia = false;
 
 window.onload = () => {
     player = document.getElementById("player");
-};
+    canonBall1 = document.getElementById("canonBall1");
+    canonBall2 = document.getElementById("canonBall2");
+    canonBall1.style.display = "none";
+    canonBall2.style.display = "none";
+}   
 
-function Shoot() {
+function fierCannons() {
+    if (cbia == false) {
+        canonBall1.style.display = "inline";
+        canonBall2.style.display = "inline";
+        cbia = true;
+        cb1x = posX;
+        cb1y = posY - 60;
+        cb1a = playerAngle + 90;
+        cb2x = posX;
+        cb2y = posY - 60 ;
+        cb2a = playerAngle - 90;
+        canonBall1.style.top = cb1y + "px";
+        canonBall1.style.left = cb1x + "px";
+        canonBall2.style.top = cb2y + "px";
+        canonBall2.style.left = cb1x + "px";
+        
+        interval_cb = setInterval(() => {
+            cb1y += Math.cos(cb1a);
+            cb1x += Math.sin(cb1a);
+            cb2y += Math.cos(cb2a);
+            cb2x += Math.sin(cb2a);
+            canonBall1.style.top = cb1y + "px";
+            canonBall1.style.left = cb1x + "px";
+            canonBall2.style.top = cb2y + "px";
+            canonBall2.style.left = cb2x + "px";
+            repeated++;
+            if (repeated == 200) {
+                cbia = false;
+                repeated = 0;
+                canonBall1.style.display = "none";
+                canonBall2.style.display = "none";
+                clearInterval(interval_cb);
+            }
+        }, 2);
+    }
 
 }
+
 
 function AI() {
 
@@ -79,7 +129,6 @@ function background() {
     ctx.arc(x_orig, y_orig, radius + 20, 0, Math.PI * 2, true);
     ctx.fillStyle = '#ECE5E5';
     ctx.fill();
-    
 }
 
 function joystick(width, height) {
@@ -98,10 +147,10 @@ let paint = false;
 function getPosition(event) {
     var mouse_x = event.clientX || event.touches[0].clientX;
     var mouse_y = event.clientY || event.touches[0].clientY;
-		var wy = window.scrollY + document.querySelector('#canvas').getBoundingClientRect().top; // Y
-		var wx = window.scrollX + document.querySelector('#canvas').getBoundingClientRect().left; // X
-		coord.y = mouse_y - wy;
-		coord.x = mouse_x - wx;
+    var wy = window.scrollY + document.querySelector('#canvas').getBoundingClientRect().top; // Y
+    var wx = window.scrollX + document.querySelector('#canvas').getBoundingClientRect().left; // X
+    coord.y = mouse_y - wy;
+    coord.x = mouse_x - wx;
 }
 
 function is_it_in_the_circle() {
@@ -188,8 +237,5 @@ function Draw(event) {
         document.getElementById("y_coordinate").innerText = y_relative ;
         document.getElementById("speed").innerText = speed;
         document.getElementById("angle").innerText = angle_in_degrees;
-        //interval_ = setInterval(() => {
-        //    movement(x_relative, y_relative, angle_in_degrees); 
-        //}, 1000);
     }
 } 
