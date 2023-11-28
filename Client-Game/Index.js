@@ -25,8 +25,7 @@ function movement(x, y, angle) {
     rotation = angle;
     player.style.top = posY + "px";
     player.style.left = posX + "px";
-    console.log(posX);
-    console.log(posY);
+    player.style.transform = "rotate(" + rotation + "deg)";
 }
 
 
