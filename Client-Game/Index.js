@@ -9,7 +9,7 @@ var rotation = 0;
 
 
 function Shoot() {
-    
+
 }
 
 function AI() {
@@ -20,7 +20,7 @@ function movement() {
         
     posX += x_relative;
     posY += y_relative;
-    rotation = angle_in_degrees
+    rotation = angle_in_degrees;
 }
 
 
@@ -36,10 +36,6 @@ while (HP >= 1) {
     break
 
 }   
-
-}
-
-//=======================
 
 var canvas, ctx;
 

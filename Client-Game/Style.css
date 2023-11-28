@@ -103,3 +103,7 @@ button {
     width: 100%;
     justify-content: space-between;
 }
+
+#fireCannonsBTN:active {
+    transform: scale(0.95);
+}
