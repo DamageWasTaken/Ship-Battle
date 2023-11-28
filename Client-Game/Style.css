@@ -9,9 +9,8 @@
     --blue: #0000fe;
     --red: #d31919;
     --orange: #e78514;
-    --cyan: #157fa4;
-    --fadded: rgba(200, 200, 200, 0.7);
-    --faddedBlack: rgba(0, 0, 0, 0.7);
+    --gray: #383838;
+    --light-gray: #565656;
 }
 
 html {
