@@ -1,12 +1,15 @@
-var Enemy = 0;
-var Plr = 0;
+var enemy = 0;
+var player = 0;
 var HP = 3;
-var SPD = 3;
 var plrdead = false;
 var posX = 0; 
 var posY = 0;
 var rotation = 0;
+var speed = 4;
 
+window.onload = () => {
+    player = document.getElementById("player");
+}
 
 function Shoot() {
 
@@ -16,11 +19,14 @@ function AI() {
 
 }
 
-function movement() {
-        
-    posX += x_relative;
-    posY += y_relative;
-    rotation = angle_in_degrees;
+function movement(x, y, angle) {
+    posX += x / speed;
+    posY += y / speed;
+    rotation = angle;
+    player.style.top = posY + "px";
+    player.style.left = posX + "px";
+    console.log(posX);
+    console.log(posY);
 }
 
 
@@ -181,5 +187,7 @@ function Draw(event) {
         document.getElementById("y_coordinate").innerText = y_relative ;
         document.getElementById("speed").innerText = speed;
         document.getElementById("angle").innerText = angle_in_degrees;
+
+        movement(x_relative, y_relative, angle_in_degrees);
     }
 } 
