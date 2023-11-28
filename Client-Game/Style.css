@@ -22,6 +22,9 @@ html {
     --accent: #ec2269;
     --accent2: #260c1a;
     scroll-behavior: smooth;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 main {
