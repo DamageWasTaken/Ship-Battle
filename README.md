@@ -1,5 +1,5 @@
 # Ship-Battle
 Creatos:
-Lucas Steele Sørensen
-Ole Risak Scho
-Alexander Damgård
+Lucas Steele Sørensen, 
+Ole Risak Scho, 
+Alexander Damgård, 
