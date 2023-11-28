@@ -9,9 +9,8 @@
     --blue: #0000fe;
     --red: #d31919;
     --orange: #e78514;
-    --cyan: #157fa4;
-    --fadded: rgba(200, 200, 200, 0.7);
-    --faddedBlack: rgba(0, 0, 0, 0.7);
+    --gray: #383838;
+    --light-gray: #565656;
 }
 
 html {
@@ -46,7 +45,6 @@ body {
     overflow: hidden;
     font-family: 'Arimo', sans-serif;
     color: var(--text);
-    background-color: var(--bg);
     background-image: url('images/photo-1699470672596-b2744968ad5c.jpg');
 }
 
@@ -94,4 +92,14 @@ h2 {
 button {
     border: none;
     background-color: transparent;
+}
+
+#bottomButtons {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 6px;
+    padding: 0 6px 0 6px;
+    width: 100%;
+    justify-content: space-between;
 }
