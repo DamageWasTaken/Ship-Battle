@@ -15,6 +15,11 @@ var cb1a = 0;
 var cb2x = 0;
 var cb2y = 0;
 var cb2a = 0;
+var enemy1Alive = false;
+var enemy2Alive = false;
+var enemy3Alive = false;
+var enemy4Alive = false;
+var enemy5Alive = false;
 var playerAngle = 0;
 var canonBall1;
 var canonBall2;
@@ -30,47 +35,107 @@ var windowHeight;
 var windowWidth;
 
 window.onload = () => {
-    player = document.getElementById("player");
-    canonBall1 = document.getElementById("canonBall1");
-    canonBall2 = document.getElementById("canonBall2");
-    enemy1 = document.getElementById("enemy1")
-    enemy2 = document.getElementById("enemy1")
-    enemy3 = document.getElementById("enemy1")
-    enemy4 = document.getElementById("enemy1")
-    enemy5 = document.getElementById("enemy1")
-    canonBall1.style.display = "none";
-    canonBall2.style.display = "none";
     windowWidth = window.innerWidth;
     windowHeight = window.innerHeight;
-    checkOutOfBounds();
+    player = document.getElementById("player");
+    enemy1 = document.getElementById("enemy1");
+    enemy2 = document.getElementById("enemy2");
+    enemy3 = document.getElementById("enemy3");
+    enemy4 = document.getElementById("enemy4");
+    enemy5 = document.getElementById("enemy5");
+    canonBall1 = document.getElementById("canonBall1");
+    canonBall2 = document.getElementById("canonBall2");
+    canonBall1.style.display = "none";
+    canonBall2.style.display = "none";
+    enemy1.style.display = "none";
+    enemy2.style.display = "none";
+    enemy3.style.display = "none";
+    enemy4.style.display = "none";
+    enemy5.style.display = "none";
+    spawnAi();
+    spawnAi();
+    spawnAi();
+    spawnAi();
+    spawnAi();
 }   
+function rad(degrees)
+{
+  var pi = Math.PI;
+  return degrees * (pi/180);
+}
+
+function randint(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+function getMidPoint(elementId) {
+    var element = document.querySelector('#' + elementId)
+    var elementHeight = window.scrollY + element.getBoundingClientRect().top + element.offsetHeight / 2;
+    var elementWidth = window.scrollX + element.getBoundingClientRect().left + element.offsetWidth / 2;
+    return {
+        'x':elementWidth,
+        'y':elementHeight
+    }
+}
+
+function distanceBetween(x1, y1, x2, y2) {
+    return Math.sqrt(Math.abs((x1-x2)*(x1-x2)) + Math.abs((y1-y2)*(y1-y2)));
+}
+
+
+
 
 function fierCannons() {
     if (cbia == false) {
         canonBall1.style.display = "inline";
         canonBall2.style.display = "inline";
         cbia = true;
-        cb1x = posX;
-        cb1y = posY - 60;
+        cb1x = getMidPoint("player").x;
+        cb1y = getMidPoint("player").y;
         cb1a = playerAngle + 90;
-        cb2x = posX;
-        cb2y = posY - 60 ;
+        cb2x = getMidPoint("player").x;
+        cb2y = getMidPoint("player").y;
         cb2a = playerAngle - 90;
         canonBall1.style.top = cb1y + "px";
         canonBall1.style.left = cb1x + "px";
         canonBall2.style.top = cb2y + "px";
         canonBall2.style.left = cb1x + "px";
-        
+
         interval_cb = setInterval(() => {
-            cb1y += Math.cos(cb1a);
-            cb1x += Math.sin(cb1a);
-            cb2y += Math.cos(cb2a);
-            cb2x += Math.sin(cb2a);
+            cb1y += Math.sin(rad(cb1a + 180));
+            cb1x += Math.cos(rad(cb1a));
+            cb2y += Math.sin(rad(cb2a + 180));
+            cb2x += Math.cos(rad(cb2a));
             canonBall1.style.top = cb1y + "px";
             canonBall1.style.left = cb1x + "px";
             canonBall2.style.top = cb2y + "px";
             canonBall2.style.left = cb2x + "px";
             repeated++;
+
+            if (distanceBetween(cb1x, cb1y, getMidPoint("enemy1").x, getMidPoint("enemy1").y) < 60 || distanceBetween(cb2x, cb2y, getMidPoint("enemy1").x, getMidPoint("enemy1").y) < 60) {
+                enemy1Alive = false
+                enemy1.style.display = "none";
+            }
+            
+            if (distanceBetween(cb1x, cb1y, getMidPoint("enemy2").x, getMidPoint("enemy2").y) < 60 || distanceBetween(cb2x, cb2y, getMidPoint("enemy2").x, getMidPoint("enemy2").y) < 60) {
+                enemy2Alive = false
+                enemy2.style.display = "none";
+            }
+            
+            if (distanceBetween(cb1x, cb1y, getMidPoint("enemy3").x, getMidPoint("enemy3").y) < 60 || distanceBetween(cb2x, cb2y, getMidPoint("enemy3").x, getMidPoint("enemy3").y) < 60) {
+                enemy3Alive = false
+                enemy3.style.display = "none";
+            }
+            
+            if (distanceBetween(cb1x, cb1y, getMidPoint("enemy4").x, getMidPoint("enemy4").y) < 60 || distanceBetween(cb2x, cb2y, getMidPoint("enemy4").x, getMidPoint("enemy4").y) < 60) {
+                enemy4Alive = false
+                enemy4.style.display = "none";
+            }
+            
+            if (distanceBetween(cb1x, cb1y, getMidPoint("enemy5").x, getMidPoint("enemy5").y) < 60 || distanceBetween(cb2x, cb2y, getMidPoint("enemy5").x, getMidPoint("enemy5").y) < 60) {
+                enemy5Alive = false
+                enemy5.style.display = "none";
+            }
             if (repeated == 200) {
                 cbia = false;
                 repeated = 0;
@@ -101,10 +166,64 @@ function checkOutOfBounds() {
         return "y";
     } else {
         return false;
+
+function spawnAi() {
+    if (enemy1Alive == false) {
+        enemy1.style.display = "inline";
+        enemy1Alive = true;
+        enemy1.style.top = randint(0, windowHeight) + "px";
+        enemy1.style.left = randint(0, windowWidth) + "px";
+    }else if (enemy2Alive == false) {
+        enemy2.style.display = "inline";
+        enemy2Alive = true;
+        enemy2.style.top = randint(0, windowHeight) + "px";
+        enemy2.style.left = randint(0, windowWidth) + "px";
+    }else if (enemy3Alive == false) {
+        enemy3.style.display = "inline";
+        enemy3Alive = true;
+        enemy3.style.top = randint(0, windowHeight) + "px";
+        enemy3.style.left = randint(0, windowWidth) + "px";
+    }else if (enemy4Alive == false) {
+        enemy4.style.display = "inline";
+        enemy4Alive = true;
+        enemy4.style.top = randint(0, windowHeight) + "px";
+        enemy4.style.left = randint(0, windowWidth) + "px";
+    }else if (enemy5Alive == false) {
+        enemy5.style.display = "inline";
+        enemy5Alive = true;
+        enemy5.style.top = randint(0, windowHeight) + "px";
+        enemy5.style.left = randint(0, windowWidth) + "px";
     }
 }
 
+function moveAi() {
+    if (enemy1Alive == true) {
+        enemy1.style.top = (+enemy1.style.top.slice(0,-2) + randint(-50, 50)) + "px";
+        enemy1.style.left = (+enemy1.style.left.slice(0,-2) + randint(-50, 50)) + "px";
+    }
+    if (enemy2Alive == true) {
+        enemy2.style.top = (+enemy2.style.top.slice(0,-2) + randint(-50, 50)) + "px";
+        enemy2.style.left = (+enemy2.style.left.slice(0,-2) + randint(-50, 50)) + "px";
+    }
+    if (enemy3Alive == true) {
+        enemy3.style.top = (+enemy3.style.top.slice(0,-2) + randint(-50, 50)) + "px";
+        enemy3.style.left = (+enemy3.style.left.slice(0,-2) + randint(-50, 50)) + "px";
+    }
+    if (enemy4Alive == true) {
+        enemy4.style.top = (+enemy4.style.top.slice(0,-2) + randint(-50, 50)) + "px";
+        enemy4.style.left = (+enemy4.style.left.slice(0,-2) + randint(-50, 50)) + "px";
+    }
+    if (enemy5Alive == true) {
+        enemy5.style.top = (+enemy5.style.top.slice(0,-2) + randint(-50, 50)) + "px";
+        enemy5.style.left = (+enemy5.style.left.slice(0,-2) + randint(-50, 50)) + "px";
+    }
+
+
+}
+
 function movement(x, y, angle) {
+    rotation = angle * -1 + 90;
+    playerAngle = Math.abs(angle * -1);
     if (checkOutOfBounds() == "x") {
         posX = 0;
         posY += y / speedDecrease;
@@ -113,7 +232,6 @@ function movement(x, y, angle) {
     } else {
         posX += x / speedDecrease;
         posY += y / speedDecrease;
-        rotation = angle * -1 + 90; 
         player.style.top = posY + "px";
         player.style.left = posX + "px";
         player.style.transform = "rotate(" + rotation + "deg)";    
