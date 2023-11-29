@@ -19,9 +19,9 @@ $results = $stmt->fetchAll(PDO:.FETCH_ASSOC);
     $pdo = null;
     $stmt = null;
 
-    header("Location: testformel.php");
+    
 
-    die();
+  
     } catch (PDOException $e) {
         die("Query failed: " . $e->getMessage());
     }
