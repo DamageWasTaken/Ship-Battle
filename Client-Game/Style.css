@@ -112,13 +112,13 @@ button {
 
 #player {
     position: absolute;
+    transition: opacity 1s;
 }
-#canonBall1 {
+
+.cannonBall {
     position: absolute;
 }
-#canonBall2 {
-    position: absolute;
-}
+
 .enemy {
     position: absolute;
     display: none;

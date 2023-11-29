@@ -1,7 +1,7 @@
 var player = 0;
 var plrdead = false;
-var posX = 0; 
-var posY = 0;
+var posX = 1; 
+var posY = 1;
 var rotation = 0;
 var speedDecrease = 4;
 var repeat = false;
@@ -59,24 +59,13 @@ window.onload = () => {
     spawnAi();
 }   
 
-function rad(degrees)
-{
+function rad(degrees) {
   var pi = Math.PI;
   return degrees * (pi/180);
 }
 
 function randint(min, max) {
     return Math.random() * (max - min) + min;
-}
-
-function getMidPoint(elementId) {
-    var element = document.querySelector('#' + elementId)
-    var elementHeight = window.scrollY + element.getBoundingClientRect().top + element.offsetHeight / 2;
-    var elementWidth = window.scrollX + element.getBoundingClientRect().left + element.offsetWidth / 2;
-    return {
-        'x':elementWidth,
-        'y':elementHeight
-    }
 }
 
 function distanceBetween(x1, y1, x2, y2) {
@@ -149,27 +138,6 @@ function fierCannons() {
 
 }
 
-function getMidPoint(elementId) {
-    var element = document.querySelector('#' + elementId)
-    var elementHeight = window.scrollY + element.getBoundingClientRect().top + element.offsetHeight / 2;
-    var elementWidth = window.scrollX + element.getBoundingClientRect().left + element.offsetWidth / 2;
-    return {
-        'x':elementWidth,
-        'y':elementHeight
-    }
-}
-
-function checkOutOfBounds() {
-    var midPoint = getMidPoint("player");
-    if (midPoint.x > windowWidth || midPoint.x < 0 ) {
-        return "x";
-    } else if (midPoint.y > windowHeight || midPoint.y < 0) {
-        return "y";
-    } else {
-        return false;
-    }
-}
-
 function spawnAi() {
     if (enemy1Alive == false) {
         enemy1.style.display = "inline";
@@ -224,21 +192,62 @@ function moveAi() {
 
 }
 
-function movement(x, y, angle) {
-    rotation = angle * -1 + 90;
-    playerAngle = Math.abs(angle * -1);
-    if (checkOutOfBounds() == "x") {
-        posX = 0;
-        posY += y / speedDecrease;
-        player.style.top = posY + "px";
-        player.style.left = posX + "px";
+function movement(x, y, angle, elementId) {
+    var element = document.querySelector('#' + elementId);
+    if (elementId == "player") {
+        rotation = angle * -1 + 90;
+        playerAngle = Math.abs(angle * -1);
+    }
+    if (checkOutOfBounds(elementId) == "x" || checkOutOfBounds(elementId) == "y") {
+        handleOutOfBounds(checkOutOfBounds(elementId), element);
     } else {
         posX += x / speedDecrease;
         posY += y / speedDecrease;
-        player.style.top = posY + "px";
-        player.style.left = posX + "px";
-        player.style.transform = "rotate(" + rotation + "deg)";    
+        element.style.top = posY + "px";
+        element.style.left = posX + "px";
+        element.style.transform = "rotate(" + rotation + "deg)";    
     } 
+}
+
+function getMidPoint(elementId) {
+    var element = document.querySelector('#' + elementId);
+    var elementMidY = window.scrollY + element.getBoundingClientRect().top + element.offsetHeight / 2;
+    var elementMidX = window.scrollX + element.getBoundingClientRect().left + element.offsetWidth / 2;
+    return {
+        'x':elementMidX,
+        'y':elementMidY
+    }
+}
+
+function handleOutOfBounds(direction, element) {
+    element.style.opacity = 0;
+    if (direction == "x") {
+        if (posX < 0) {
+            posX = windowWidth - 10;
+        } else {
+            posX = 0;
+        }
+        element.style.left = posX + "px";
+    } else {
+        if (posY < -40) {
+            posY = windowHeight -70;
+        } else {
+            posY = 0;
+        }
+        element.style.top = posY + "px";
+    }
+    element.style.opacity = 1;
+}
+
+function checkOutOfBounds(element) {
+    var midPoint = getMidPoint(element);
+    if (midPoint.x > windowWidth || midPoint.x < 0 ) {
+        return "x";
+    } else if (midPoint.y > windowHeight || midPoint.y < 0) {
+        return "y";
+    } else {
+        return false;
+    }
 }
 
 var canvas, ctx;
@@ -330,7 +339,7 @@ function startDrawing(event) {
     } else {
         paint = true;
         getPosition(event);
-        repeatT();
+        repeatT("player");
         if (is_it_in_the_circle()) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             background();
@@ -340,9 +349,9 @@ function startDrawing(event) {
     }
 }
 
-function repeatT() {
+function repeatT(elementToBeRepeated) {
     interval_ = setInterval(() => {
-        movement(x_relative, y_relative, angle_in_degrees);
+        movement(x_relative, y_relative, angle_in_degrees, elementToBeRepeated);
     }, 10);
 }
 
