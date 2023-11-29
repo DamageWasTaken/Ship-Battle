@@ -48,7 +48,6 @@ body {
     overflow: hidden;
     font-family: 'Arimo', sans-serif;
     color: var(--text);
-    background-image: url('images/photo-1699470672596-b2744968ad5c.jpg');
 }
 
 nav {
@@ -112,14 +111,15 @@ button {
 }
 
 #player {
-    position: relative;
+    position: absolute;
 }
 #canonBall1 {
-    position: relative;
+    position: absolute;
 }
 #canonBall2 {
-    position: relative;
+    position: absolute;
 }
-#enemy {
-    position: relative;
+.enemy {
+    position: absolute;
+    display: none;
 }
