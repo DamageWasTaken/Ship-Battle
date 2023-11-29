@@ -1,22 +1,20 @@
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["username"];
-    $highscore = $_POST["highscore"];
+    $userSearch = $_POST["usersearch"];
+  
 
     try {
         require_once "database.php";
-        $query = "INSERT INTO users (username, highscore) VALUES 
-        (:username, :highscore);";
+        $query = "SELECT * FROM highscore WHERE username = :usersearch;";
 
     $stmt = $pdo->prepare($query);
     
-    $stmt->bindParam(":username", $username);
-    $stmt->bindParam(":highscore", $highscore);
+    $stmt->bindParam(":usersearch", $userSearch);
     
-        
-
     $stmt->execute();
+
+$results = $stmt->fetchAll(PDO:.FETCH_ASSOC);
 
     $pdo = null;
     $stmt = null;
@@ -31,3 +29,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: testformel.php");
 }
 ?>
+<!DOCTYPE html>
+<html lang?="eng">
+ 
+    <body>
+    <h3>Search Result</h3>
+        <?php
+        if (empty($results)) {
+            echo "<div>";
+            echo "<p>there were no results</p>";
+            echo "</div>";
+
+
+        } else {
+            var_dump($results);
+        }
+        ?>
+
+
+</body>
+</html>
