@@ -58,6 +58,7 @@ window.onload = () => {
     spawnAi();
     spawnAi();
 }   
+
 function rad(degrees)
 {
   var pi = Math.PI;
@@ -166,6 +167,8 @@ function checkOutOfBounds() {
         return "y";
     } else {
         return false;
+    }
+}
 
 function spawnAi() {
     if (enemy1Alive == false) {
