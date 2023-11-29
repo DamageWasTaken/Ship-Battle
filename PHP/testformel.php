@@ -6,7 +6,7 @@
             <label for="name">Navn:</label>
             <input id="name" type="text" name="username" placeholder="Navn">
             <label for="score">Din Score:</label>
-            <input id="score" type="text" name="highscore" value="237" readonly>
+            <input id="score" type="text" name="highscore" placeholder="Score">
             <button>Submit</button>
         </form>
 

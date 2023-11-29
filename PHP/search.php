@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         require_once "database.php";
-        $query = "SELECT * FROM highscore WHERE username = :usersearch;";
+        $query = "SELECT * FROM users WHERE username = :usersearch;";
 
     $stmt = $pdo->prepare($query);
     
@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $stmt->execute();
 
-$results = $stmt->fetchAll(PDO:.FETCH_ASSOC);
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $pdo = null;
     $stmt = null;
@@ -42,7 +42,9 @@ $results = $stmt->fetchAll(PDO:.FETCH_ASSOC);
 
 
         } else {
-            var_dump($results);
+            foreach ($results as $row)
+            echo $row["username"];
+            echo $row["highscore"];
         }
         ?>
 
