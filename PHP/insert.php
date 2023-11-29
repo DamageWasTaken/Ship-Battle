@@ -4,7 +4,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $highscore = $_POST["highscore"];
 
     try {
-        require_once "dbh.inc.php";
+        require_once "database.php";
         $query = "INSERT INTO users (username, highscore) VALUES 
         (?, ?, ?);";
 
