@@ -7,11 +7,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         require_once "database.php";
-        $query = "SELECT * FROM users WHERE username = :usersearch;";
+        $query = "SELECT * FROM users";
 
     $stmt = $pdo->prepare($query);
     
-    $stmt->bindParam(":usersearch", $userSearch);
+
     
     $stmt->execute();
 
@@ -45,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             foreach ($results as $row)
             echo $row["username"];
+            echo "<p></p>";
             echo $row["highscore"];
             
             
@@ -54,9 +55,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <script>
   var highscore = <?php echo $row["highscore"];?>;
-  var username = <?php echo $row["username"];?>;
+  var username = "<?php echo $row["username"];?>";
   
-</script>
+</script>         
 
 </body>
 </html>
