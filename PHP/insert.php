@@ -18,7 +18,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: testformel.html");
 
     die();
-  
+    } catch (PDOException $e) {
+        die("Query failed: " . $e->getMessage());
+    }
 } else {
     header("Location: testformel.html");
 }
