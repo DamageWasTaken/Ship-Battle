@@ -26,6 +26,8 @@ var enemy5;
 var interval_cb;
 var repeated = 0;
 var cbia = false;
+var windowHeight;
+var windowWidth;
 
 window.onload = () => {
     player = document.getElementById("player");
@@ -38,6 +40,9 @@ window.onload = () => {
     enemy5 = document.getElementById("enemy1")
     canonBall1.style.display = "none";
     canonBall2.style.display = "none";
+    windowWidth = window.innerWidth;
+    windowHeight = window.innerHeight;
+    checkOutOfBounds();
 }   
 
 function fierCannons() {
@@ -78,18 +83,41 @@ function fierCannons() {
 
 }
 
+function getMidPoint(elementId) {
+    var element = document.querySelector('#' + elementId)
+    var elementHeight = window.scrollY + element.getBoundingClientRect().top + element.offsetHeight / 2;
+    var elementWidth = window.scrollX + element.getBoundingClientRect().left + element.offsetWidth / 2;
+    return {
+        'x':elementWidth,
+        'y':elementHeight
+    }
+}
 
-function AI() {
-
+function checkOutOfBounds() {
+    var midPoint = getMidPoint("player");
+    if (midPoint.x > windowWidth || midPoint.x < 0 ) {
+        return "x";
+    } else if (midPoint.y > windowHeight || midPoint.y < 0) {
+        return "y";
+    } else {
+        return false;
+    }
 }
 
 function movement(x, y, angle) {
-    posX += x / speedDecrease;
-    posY += y / speedDecrease;
-    rotation = angle * -1 + 90; 
-    player.style.top = posY + "px";
-    player.style.left = posX + "px";
-    player.style.transform = "rotate(" + rotation + "deg)";    
+    if (checkOutOfBounds() == "x") {
+        posX = 0;
+        posY += y / speedDecrease;
+        player.style.top = posY + "px";
+        player.style.left = posX + "px";
+    } else {
+        posX += x / speedDecrease;
+        posY += y / speedDecrease;
+        rotation = angle * -1 + 90; 
+        player.style.top = posY + "px";
+        player.style.left = posX + "px";
+        player.style.transform = "rotate(" + rotation + "deg)";    
+    } 
 }
 
 var canvas, ctx;
@@ -115,9 +143,6 @@ window.addEventListener('load', () => {
     document.getElementById("speed").innerText = 0;
     document.getElementById("angle").innerText = 0;
 });
-
-
-
 
 var width, height, radius, x_orig, y_orig;
 
