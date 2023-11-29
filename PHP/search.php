@@ -21,13 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pdo = null;
     $stmt = null;
 
-    header("Location: testformel.html");
+    header("Location: testformel.php");
 
     die();
     } catch (PDOException $e) {
         die("Query failed: " . $e->getMessage());
     }
 } else {
-    header("Location: testformel.html");
+    header("Location: testformel.php");
 }
 ?>
