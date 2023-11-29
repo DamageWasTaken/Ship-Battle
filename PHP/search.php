@@ -1,3 +1,4 @@
+
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -45,9 +46,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             foreach ($results as $row)
             echo $row["username"];
             echo $row["highscore"];
+            
+            
         }
+        
         ?>
 
+<script>
+  var highscore = <?php echo $row["highscore"];?>;
+  var username = <?php echo $row["username"];?>;
+  
+</script>
 
 </body>
 </html>
