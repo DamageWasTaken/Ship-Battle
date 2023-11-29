@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         require_once "database.php";
         $query = "INSERT INTO users (username, highscore) VALUES 
-        (?, ?, ?);";
+        (?, ?);";
 
     $stmt = $pdo->prepare($query);
 
@@ -15,13 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pdo = null;
     $stmt = null;
 
-    header("Location: index.php");
+    header("Location: testformel.php");
 
     die();
     } catch (PDOException $e) {
         die("Query failed: " . $e->getMessage());
     }
 } else {
-    header("Location: index.php");
+    header("Location: testformel.php");
 }
 ?>
