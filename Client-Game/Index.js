@@ -1,4 +1,3 @@
-var enemy = 0;
 var player = 0;
 var HP = 3;
 var plrdead = false;
@@ -15,6 +14,11 @@ var cb2a = 0;
 var playerAngle = 0;
 var canonBall1;
 var canonBall2;
+var enemy1;
+var enemy2;
+var enemy3;
+var enemy4;
+var enemy5;
 var interval_cb;
 var repeated = 0;
 var cbia = false;
@@ -23,6 +27,11 @@ window.onload = () => {
     player = document.getElementById("player");
     canonBall1 = document.getElementById("canonBall1");
     canonBall2 = document.getElementById("canonBall2");
+    enemy1 = document.getElementById("enemy1")
+    enemy2 = document.getElementById("enemy1")
+    enemy3 = document.getElementById("enemy1")
+    enemy4 = document.getElementById("enemy1")
+    enemy5 = document.getElementById("enemy1")
     canonBall1.style.display = "none";
     canonBall2.style.display = "none";
 }   
