@@ -1,13 +1,15 @@
 var player = 0;
+var playerHittingIsland = false;
 var plrdead = false;
 var posX = 1; 
 var posY = 1;
 var rotation = 0;
-var speedDecrease = 4;
+var speedDecrease = 10;
 var repeat = false;
 var angle_in_degrees = 0;
 var x_relative = 0;
 var y_relative = 0;
+var highscore = 0;
 var interval_;
 var cb1x = 0;
 var cb1y = 0;
@@ -37,6 +39,8 @@ var windowWidth;
 window.onload = () => {
     windowWidth = window.innerWidth;
     windowHeight = window.innerHeight;
+    posX = windowWidth / 2;
+    posY = windowHeight / 2;
     player = document.getElementById("player");
     enemy1 = document.getElementById("enemy1");
     enemy2 = document.getElementById("enemy2");
@@ -57,6 +61,7 @@ window.onload = () => {
     spawnAi();
     spawnAi();
     spawnAi();
+    islandGenerator();
 }   
 
 function rad(degrees) {
@@ -72,7 +77,26 @@ function distanceBetween(x1, y1, x2, y2) {
     return Math.sqrt(Math.abs((x1-x2)*(x1-x2)) + Math.abs((y1-y2)*(y1-y2)));
 }
 
-
+function islandGenerator() {
+    for (let i = 0; i < 4; i++) {
+        var currentIsland = document.getElementById("island" + i);
+        currentIsland.src = "../Assets/Island_" + Math.round(randint(1, 7)) + ".png";
+        if (i == 0) {
+            currentIsland.style.top = randint(0, windowHeight / 2 - currentIsland.offsetHeight) + "px";
+            currentIsland.style.left = randint(0, windowWidth / 2 - currentIsland.offsetWidth) + "px";
+        } else if (i == 1) {
+            currentIsland.style.top = randint(0 , windowHeight / 2 - currentIsland.offsetHeight) + "px";
+            currentIsland.style.left = randint(windowWidth / 2, windowWidth - currentIsland.offsetWidth) + "px";
+        } else if (i == 2) {
+            currentIsland.style.top = randint(windowHeight / 2, windowHeight - currentIsland.offsetHeight) + "px";
+            currentIsland.style.left = randint(0, windowWidth / 2 - currentIsland.offsetWidth) + "px";
+        } else if (i == 3) {
+            currentIsland.style.top = randint(windowHeight / 2, windowHeight - currentIsland.offsetHeight) + "px";
+            currentIsland.style.left = randint(windowWidth / 2, windowWidth - currentIsland.offsetWidth) + "px";
+        }
+        
+    }
+}
 
 
 function fierCannons() {
@@ -201,11 +225,105 @@ function movement(x, y, angle, elementId) {
     if (checkOutOfBounds(elementId) == "x" || checkOutOfBounds(elementId) == "y") {
         handleOutOfBounds(checkOutOfBounds(elementId), element);
     } else {
-        posX += x / speedDecrease;
-        posY += y / speedDecrease;
+
+        if (playerHittingIsland == false) {
+            posX += x / speedDecrease;
+            posY += y / speedDecrease;
+        } else {
+            posX -=x / speedDecrease*10;
+            posY -= y / speedDecrease*10;
+        }
+
+    
         element.style.top = posY + "px";
-    element.style.left = posX + "px";
-    element.style.transform = "rotate(" + rotation + "deg)";
+        element.style.left = posX + "px";
+        element.style.transform = "rotate(" + rotation + "deg)";
+        
+        var disToIslands = [distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint("island0").x, getMidPoint("island0").y), distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint("island1").x, getMidPoint("island1").y), distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint("island2").x, getMidPoint("island2").y), distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint("island3").x, getMidPoint("island3").y)]
+        var tetIsland;
+        var tetIslandJNr;
+
+
+        if (disToIslands[0] < disToIslands[1] && disToIslands[0] < disToIslands[2] && disToIslands[0] < disToIslands[3]) {
+            tetIsland = "island0";
+            tetIslandJNr = 0;
+        } else if (disToIslands[1] < disToIslands[0] && disToIslands[1] < disToIslands[2] && disToIslands[1] < disToIslands[3]) {
+            tetIsland = "island1";
+            tetIslandJNr = 1;
+        } else if (disToIslands[2] < disToIslands[0] && disToIslands[2] < disToIslands[1] && disToIslands[2] < disToIslands[3]) {
+            tetIsland = "island2";
+            tetIslandJNr = 2;
+        } else if (disToIslands[3] < disToIslands[0] && disToIslands[3] < disToIslands[2] && disToIslands[3] < disToIslands[1]) {
+            tetIsland = "island3";
+            tetIslandJNr = 3;
+        }
+
+        console.log(disToIslands[tetIslandJNr])
+
+
+        if (document.getElementById(tetIsland).src == "file:///C:/xampp/htdocs/Website/Ship-Battle/Assets/Island_1.png") {
+            if (distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y) < 50 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x + (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y) < 50) {
+                console.log("Hit");
+                playerHittingIsland = true;
+            } else {
+                console.log("chill dude");
+                playerHittingIsland = false;
+            }
+        } else if (document.getElementById(tetIsland).src == "file:///C:/xampp/htdocs/Website/Ship-Battle/Assets/Island_2.png") {
+            if (distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y - (document.getElementById(tetIsland).offsetHeight / 4)) < 40 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y + (document.getElementById(tetIsland).offsetHeight / 4)) < 40 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x + (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y + (document.getElementById(tetIsland).offsetHeight / 4)) < 40) {
+                console.log("Hit");
+                playerHittingIsland = true;
+            } else {
+                console.log("chill dude");
+                playerHittingIsland = false;
+            }
+        } else if (document.getElementById(tetIsland).src == "file:///C:/xampp/htdocs/Website/Ship-Battle/Assets/Island_3.png") {
+            if (distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y + (document.getElementById(tetIsland).offsetHeight / 4)) < 40 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x + (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y - (document.getElementById(tetIsland).offsetHeight / 4)) < 40) {
+                console.log("Hit");
+                playerHittingIsland = true;
+            } else {
+                console.log("chill dude");
+                playerHittingIsland = false;
+            }
+        } else if (document.getElementById(tetIsland).src == "file:///C:/xampp/htdocs/Website/Ship-Battle/Assets/Island_4.png") {
+            if (disToIslands[tetIslandJNr] < 90) {
+                console.log("Hit");
+                playerHittingIsland = true;
+            } else {
+                console.log("chill dude");
+                playerHittingIsland = false;
+            }
+        } else if (document.getElementById(tetIsland).src == "file:///C:/xampp/htdocs/Website/Ship-Battle/Assets/Island_5.png") {
+            if (disToIslands[tetIslandJNr] < 80) {
+                console.log("Hit");
+                playerHittingIsland = true;
+            } else {
+                console.log("chill dude");
+                playerHittingIsland = false;
+            }
+        } else if (document.getElementById(tetIsland).src == "file:///C:/xampp/htdocs/Website/Ship-Battle/Assets/Island_6.png") {
+            if (distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y) < 50 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x + (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y) < 50) {
+                console.log("Hit");
+                playerHittingIsland = true;
+            } else {
+                console.log("chill dude");
+                playerHittingIsland = false;
+            }
+        } else if (document.getElementById(tetIsland).src == "file:///C:/xampp/htdocs/Website/Ship-Battle/Assets/Island_7.png") {
+            if (disToIslands[tetIslandJNr] < 80 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x, getMidPoint(tetIsland).y + (document.getElementById(tetIsland).offsetHeight / 4)) < 80 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x, getMidPoint(tetIsland).y - (document.getElementById(tetIsland).offsetHeight / 4)) < 80) {
+                console.log("Hit");
+                playerHittingIsland = true;
+            } else {
+                console.log("chill dude");
+                playerHittingIsland = false;
+            }
+
+        }
+        console.log(playerHittingIsland);
+
+
+
+
 } 
 }
 
@@ -229,10 +347,10 @@ function handleOutOfBounds(direction, element) {
         }
         element.style.left = posX + "px";
     } else {
-        if (posY < -40) {
+        if (posY < -20) {
             posY = windowHeight -70;
         } else {
-            posY = -40;
+            posY = -20;
         }
         element.style.top = posY + "px";
     }
