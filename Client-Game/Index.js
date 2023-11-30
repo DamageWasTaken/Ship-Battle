@@ -195,8 +195,8 @@ function moveAi() {
 function movement(x, y, angle, elementId) {
     var element = document.querySelector('#' + elementId);
     if (elementId == "player") {
-        rotation = angle * -1 + 90;
-        playerAngle = Math.abs(angle * -1);
+    rotation = angle * -1 + 90;
+    playerAngle = Math.abs(angle * -1);
     }
     if (checkOutOfBounds(elementId) == "x" || checkOutOfBounds(elementId) == "y") {
         handleOutOfBounds(checkOutOfBounds(elementId), element);
@@ -204,9 +204,9 @@ function movement(x, y, angle, elementId) {
         posX += x / speedDecrease;
         posY += y / speedDecrease;
         element.style.top = posY + "px";
-        element.style.left = posX + "px";
-        element.style.transform = "rotate(" + rotation + "deg)";    
-    } 
+    element.style.left = posX + "px";
+    element.style.transform = "rotate(" + rotation + "deg)";
+} 
 }
 
 function getMidPoint(elementId) {
