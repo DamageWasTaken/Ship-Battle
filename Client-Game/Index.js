@@ -1,13 +1,15 @@
 var player = 0;
+var playerHittingIsland = false;
 var plrdead = false;
 var posX = 1; 
 var posY = 1;
 var rotation = 0;
-var speedDecrease = 4;
+var speedDecrease = 10;
 var repeat = false;
 var angle_in_degrees = 0;
 var x_relative = 0;
 var y_relative = 0;
+var highscore = 0;
 var interval_1;
 var interval_2;
 var interval_3;
@@ -49,6 +51,8 @@ var loopsStated = 0;
 window.onload = () => {
     windowWidth = window.innerWidth;
     windowHeight = window.innerHeight;
+    posX = windowWidth / 2;
+    posY = windowHeight / 2;
     player = document.getElementById("player");
     enemy1 = document.getElementById("enemy1");
     enemy2 = document.getElementById("enemy2");
@@ -69,7 +73,13 @@ window.onload = () => {
     spawnAi();
     spawnAi();
     spawnAi();
+    islandGenerator();
 }   
+
+function Highscore() {
+    highscore += 100;
+    document.getElementById("highscore").innerHTML = highscore
+}
 
 function rad(degrees) {
   var pi = Math.PI;
@@ -83,6 +93,28 @@ function randint(min, max) {
 function distanceBetween(x1, y1, x2, y2) {
     return Math.sqrt(Math.abs((x1-x2)*(x1-x2)) + Math.abs((y1-y2)*(y1-y2)));
 }
+
+function islandGenerator() {
+    for (let i = 0; i < 4; i++) {
+        var currentIsland = document.getElementById("island" + i);
+        currentIsland.src = "../Assets/Island_" + Math.round(randint(1, 7)) + ".png";
+        if (i == 0) {
+            currentIsland.style.top = randint(0, windowHeight / 2 - currentIsland.offsetHeight) + "px";
+            currentIsland.style.left = randint(0, windowWidth / 2 - currentIsland.offsetWidth) + "px";
+        } else if (i == 1) {
+            currentIsland.style.top = randint(0 , windowHeight / 2 - currentIsland.offsetHeight) + "px";
+            currentIsland.style.left = randint(windowWidth / 2, windowWidth - currentIsland.offsetWidth) + "px";
+        } else if (i == 2) {
+            currentIsland.style.top = randint(windowHeight / 2, windowHeight - currentIsland.offsetHeight) + "px";
+            currentIsland.style.left = randint(0, windowWidth / 2 - currentIsland.offsetWidth) + "px";
+        } else if (i == 3) {
+            currentIsland.style.top = randint(windowHeight / 2, windowHeight - currentIsland.offsetHeight) + "px";
+            currentIsland.style.left = randint(windowWidth / 2, windowWidth - currentIsland.offsetWidth) + "px";
+        }
+        
+    }
+}
+
 
 function fierCannons() {
     if (cbia == false) {
@@ -113,26 +145,31 @@ function fierCannons() {
 
             if (distanceBetween(cannonBall1Properties.x, cannonBall1Properties.y, getMidPoint("enemy1").x, getMidPoint("enemy1").y) < 60 || distanceBetween(cannonBall2Properties.x, cannonBall2Properties.y, getMidPoint("enemy1").x, getMidPoint("enemy1").y) < 60) {
                 enemyState.enemy1 = false
+                Highscore()
                 enemy1.style.display = "none";
             }
             
             if (distanceBetween(cannonBall1Properties.x, cannonBall1Properties.y, getMidPoint("enemy2").x, getMidPoint("enemy2").y) < 60 || distanceBetween(cannonBall2Properties.x, cannonBall2Properties.y, getMidPoint("enemy2").x, getMidPoint("enemy2").y) < 60) {
                 enemyState.enemy2 = false
+                Highscore()
                 enemy2.style.display = "none";
             }
             
             if (distanceBetween(cannonBall1Properties.x, cannonBall1Properties.y, getMidPoint("enemy3").x, getMidPoint("enemy3").y) < 60 || distanceBetween(cannonBall2Properties.x, cannonBall2Properties.y, getMidPoint("enemy3").x, getMidPoint("enemy3").y) < 60) {
                 enemyState.enemy3 = false
+                Highscore()
                 enemy3.style.display = "none";
             }
             
             if (distanceBetween(cannonBall1Properties.x, cannonBall1Properties.y, getMidPoint("enemy4").x, getMidPoint("enemy4").y) < 60 || distanceBetween(cannonBall2Properties.x, cannonBall2Properties.y, getMidPoint("enemy4").x, getMidPoint("enemy4").y) < 60) {
                 enemyState.enemy4 = false
+                Highscore()
                 enemy4.style.display = "none";
             }
             
             if (distanceBetween(cannonBall1Properties.x, cannonBall1Properties.y, getMidPoint("enemy5").x, getMidPoint("enemy5").y) < 60 || distanceBetween(cannonBall2Properties.x, cannonBall2Properties.y, getMidPoint("enemy5").x, getMidPoint("enemy5").y) < 60) {
                 enemyState.enemy5 = false
+                Highscore()
                 enemy5.style.display = "none";
             }
             if (repeated == 200) {
@@ -253,21 +290,106 @@ function movement(x, y, angle, elementId) {
     if (checkOutOfBounds(elementId) == "x" || checkOutOfBounds(elementId) == "y") {
         handleOutOfBounds(checkOutOfBounds(elementId), element, getMidPoint(elementId).x, getMidPoint(elementId).y);
     } else {
-        if (elementId == "player") {
+
+        if (playerHittingIsland == false) {
             posX += x / speedDecrease;
             posY += y / speedDecrease;
-            element.style.top = posY + "px";
-            element.style.left = posX + "px";
-            element.style.transform = "rotate(" + rotation + "deg)";
         } else {
-            newY = +element.style.top.slice(0,-2) + y;
-            newX = +element.style.left.slice(0,-2) + x;
-            element.style.top = newY + "px";
-            element.style.left = newX + "px";
-            element.style.transform = "rotate(" + tempAngle + "deg)";
+            posX -=x / speedDecrease*10;
+            posY -= y / speedDecrease*10;
         }
+
+    
+        element.style.top = posY + "px";
+        element.style.left = posX + "px";
+        element.style.transform = "rotate(" + rotation + "deg)";
         
-    } 
+        var disToIslands = [distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint("island0").x, getMidPoint("island0").y), distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint("island1").x, getMidPoint("island1").y), distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint("island2").x, getMidPoint("island2").y), distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint("island3").x, getMidPoint("island3").y)]
+        var tetIsland;
+        var tetIslandJNr;
+
+
+        if (disToIslands[0] < disToIslands[1] && disToIslands[0] < disToIslands[2] && disToIslands[0] < disToIslands[3]) {
+            tetIsland = "island0";
+            tetIslandJNr = 0;
+        } else if (disToIslands[1] < disToIslands[0] && disToIslands[1] < disToIslands[2] && disToIslands[1] < disToIslands[3]) {
+            tetIsland = "island1";
+            tetIslandJNr = 1;
+        } else if (disToIslands[2] < disToIslands[0] && disToIslands[2] < disToIslands[1] && disToIslands[2] < disToIslands[3]) {
+            tetIsland = "island2";
+            tetIslandJNr = 2;
+        } else if (disToIslands[3] < disToIslands[0] && disToIslands[3] < disToIslands[2] && disToIslands[3] < disToIslands[1]) {
+            tetIsland = "island3";
+            tetIslandJNr = 3;
+        }
+
+        console.log(disToIslands[tetIslandJNr])
+
+
+        if (document.getElementById(tetIsland).src == "file:///C:/xampp/htdocs/Website/Ship-Battle/Assets/Island_1.png") {
+            if (distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y) < 50 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x + (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y) < 50) {
+                console.log("Hit");
+                playerHittingIsland = true;
+            } else {
+                console.log("chill dude");
+                playerHittingIsland = false;
+            }
+        } else if (document.getElementById(tetIsland).src == "file:///C:/xampp/htdocs/Website/Ship-Battle/Assets/Island_2.png") {
+            if (distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y - (document.getElementById(tetIsland).offsetHeight / 4)) < 40 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y + (document.getElementById(tetIsland).offsetHeight / 4)) < 40 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x + (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y + (document.getElementById(tetIsland).offsetHeight / 4)) < 40) {
+                console.log("Hit");
+                playerHittingIsland = true;
+            } else {
+                console.log("chill dude");
+                playerHittingIsland = false;
+            }
+        } else if (document.getElementById(tetIsland).src == "file:///C:/xampp/htdocs/Website/Ship-Battle/Assets/Island_3.png") {
+            if (distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y + (document.getElementById(tetIsland).offsetHeight / 4)) < 40 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x + (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y - (document.getElementById(tetIsland).offsetHeight / 4)) < 40) {
+                console.log("Hit");
+                playerHittingIsland = true;
+            } else {
+                console.log("chill dude");
+                playerHittingIsland = false;
+            }
+        } else if (document.getElementById(tetIsland).src == "file:///C:/xampp/htdocs/Website/Ship-Battle/Assets/Island_4.png") {
+            if (disToIslands[tetIslandJNr] < 90) {
+                console.log("Hit");
+                playerHittingIsland = true;
+            } else {
+                console.log("chill dude");
+                playerHittingIsland = false;
+            }
+        } else if (document.getElementById(tetIsland).src == "file:///C:/xampp/htdocs/Website/Ship-Battle/Assets/Island_5.png") {
+            if (disToIslands[tetIslandJNr] < 80) {
+                console.log("Hit");
+                playerHittingIsland = true;
+            } else {
+                console.log("chill dude");
+                playerHittingIsland = false;
+            }
+        } else if (document.getElementById(tetIsland).src == "file:///C:/xampp/htdocs/Website/Ship-Battle/Assets/Island_6.png") {
+            if (distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y) < 50 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x + (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y) < 50) {
+                console.log("Hit");
+                playerHittingIsland = true;
+            } else {
+                console.log("chill dude");
+                playerHittingIsland = false;
+            }
+        } else if (document.getElementById(tetIsland).src == "file:///C:/xampp/htdocs/Website/Ship-Battle/Assets/Island_7.png") {
+            if (disToIslands[tetIslandJNr] < 80 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x, getMidPoint(tetIsland).y + (document.getElementById(tetIsland).offsetHeight / 4)) < 80 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x, getMidPoint(tetIsland).y - (document.getElementById(tetIsland).offsetHeight / 4)) < 80) {
+                console.log("Hit");
+                playerHittingIsland = true;
+            } else {
+                console.log("chill dude");
+                playerHittingIsland = false;
+            }
+
+        }
+        console.log(playerHittingIsland);
+
+
+
+
+} 
 }
 
 function getMidPoint(elementId) {
@@ -293,10 +415,10 @@ function handleOutOfBounds(direction, element, x, y) {
             posX = x
         }
     } else {
-        if (y < 0) {
-            y = windowHeight -55;
+        if (posY < -20) {
+            posY = windowHeight -70;
         } else {
-            y = -40;
+            posY = -20;
         }
         element.style.top = y + "px";
         if (element.id == "player") {
