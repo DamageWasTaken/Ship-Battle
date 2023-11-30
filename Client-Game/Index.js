@@ -33,6 +33,7 @@ var repeated = 0;
 var cbia = false;
 var windowHeight;
 var windowWidth;
+var highscore = 0;
 
 window.onload = () => {
     windowWidth = window.innerWidth;
@@ -58,6 +59,11 @@ window.onload = () => {
     spawnAi();
     spawnAi();
 }   
+
+function Highscore() {
+    highscore += 100;
+    document.getElementById("highscore").innerHTML = highscore
+}
 
 function rad(degrees) {
   var pi = Math.PI;
@@ -104,26 +110,31 @@ function fierCannons() {
 
             if (distanceBetween(cb1x, cb1y, getMidPoint("enemy1").x, getMidPoint("enemy1").y) < 60 || distanceBetween(cb2x, cb2y, getMidPoint("enemy1").x, getMidPoint("enemy1").y) < 60) {
                 enemy1Alive = false
+                Highscore()
                 enemy1.style.display = "none";
             }
             
             if (distanceBetween(cb1x, cb1y, getMidPoint("enemy2").x, getMidPoint("enemy2").y) < 60 || distanceBetween(cb2x, cb2y, getMidPoint("enemy2").x, getMidPoint("enemy2").y) < 60) {
                 enemy2Alive = false
+                Highscore()
                 enemy2.style.display = "none";
             }
             
             if (distanceBetween(cb1x, cb1y, getMidPoint("enemy3").x, getMidPoint("enemy3").y) < 60 || distanceBetween(cb2x, cb2y, getMidPoint("enemy3").x, getMidPoint("enemy3").y) < 60) {
                 enemy3Alive = false
+                Highscore()
                 enemy3.style.display = "none";
             }
             
             if (distanceBetween(cb1x, cb1y, getMidPoint("enemy4").x, getMidPoint("enemy4").y) < 60 || distanceBetween(cb2x, cb2y, getMidPoint("enemy4").x, getMidPoint("enemy4").y) < 60) {
                 enemy4Alive = false
+                Highscore()
                 enemy4.style.display = "none";
             }
             
             if (distanceBetween(cb1x, cb1y, getMidPoint("enemy5").x, getMidPoint("enemy5").y) < 60 || distanceBetween(cb2x, cb2y, getMidPoint("enemy5").x, getMidPoint("enemy5").y) < 60) {
                 enemy5Alive = false
+                Highscore()
                 enemy5.style.display = "none";
             }
             if (repeated == 200) {
