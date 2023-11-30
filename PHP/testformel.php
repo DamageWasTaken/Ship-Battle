@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang?="eng">
-
     <body>
         <form id="inputField" action="insert.php" method="post">
             <label for="name">Navn:</label>

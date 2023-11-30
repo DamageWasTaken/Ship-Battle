@@ -32,7 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 <html lang?="eng">
- 
+    <head>
+    <script src="test.js"></script>        
+    </head>
     <body>
     <h3>Search Result</h3>
         <?php
@@ -43,23 +45,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         } else {
+
             foreach ($results as $row)
             echo $row["username"];
             echo "<p></p>";
             echo $row["highscore"];
             echo "<p></p>";
             $dump = VAR_DUMP($results);
-            
-            
 }
         
-        ?>
-
-<script>
-  var highscore = "<?php echo $row["highscore"];?>";
-  var username = "<?php echo $row["username"];?>";
-  var dump = "<?php echo $row;?>";
-</script>         
-
+        ?>     
+    <script>
+        var highscore = "<?php echo $row["highscore"];?>";
+        var username = "<?php echo $row["username"];?>";
+        var DUMP = "<?php echo VAR_DUMP($results);?>":
+    </script>  
 </body>
 </html>
