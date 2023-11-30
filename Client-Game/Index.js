@@ -232,7 +232,7 @@ function handleOutOfBounds(direction, element) {
         if (posY < -40) {
             posY = windowHeight -70;
         } else {
-            posY = 0;
+            posY = -40;
         }
         element.style.top = posY + "px";
     }
