@@ -50,7 +50,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo $row["username"];
             echo "<p></p>";
             echo $row["highscore"];
-        }
+            echo "<p></p>";
+            $dump = VAR_DUMP($results);
+}
         
         ?>     
     <script>
