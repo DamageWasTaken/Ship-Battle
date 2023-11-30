@@ -47,16 +47,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo $row["username"];
             echo "<p></p>";
             echo $row["highscore"];
+            echo "<p></p>";
+            $dump = VAR_DUMP($results);
             
             
-        }
+}
         
         ?>
 
 <script>
-  var highscore = <?php echo $row["highscore"];?>;
+  var highscore = "<?php echo $row["highscore"];?>";
   var username = "<?php echo $row["username"];?>";
-  
+  var dump = "<?php echo $row;?>";
 </script>         
 
 </body>
