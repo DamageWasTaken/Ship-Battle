@@ -481,12 +481,6 @@ function movement(x, y, angle, elementId) {
     } 
 }
 
-var penis = "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_1.png";
-
-var lastPart = penis.split('/').filter(e => e).slice(-1);
-
-console.log(penis.split('/').filter(e => e).slice(-1)[0]);
-
 function getMidPoint(elementId) {
     var element = document.querySelector('#' + elementId);
     var elementMidY = window.scrollY + element.getBoundingClientRect().top + element.offsetHeight / 2;
@@ -499,21 +493,27 @@ function getMidPoint(elementId) {
 
 function handleOutOfBounds(direction, element, x, y) {
     element.style.opacity = 0;
+    console.log("OutOfBounds")
+    console.log(element)
     if (direction == "x") {
         if (x < 0) {
             x = windowWidth - 20;
+            console.log(1)
         } else {
             x = 0;
+            console.log(2)
         }
         element.style.left = x + "px";
         if (element.id == "player") {
             posX = x
         }
     } else {
-        if (posY < -20) {
-            posY = windowHeight -70;
+        if (posY < 0) {
+            y = windowHeight - 30;
+            console.log(3)
         } else {
-            posY = -20;
+            y = -20;
+            console.log(4)
         }
         element.style.top = y + "px";
         if (element.id == "player") {
