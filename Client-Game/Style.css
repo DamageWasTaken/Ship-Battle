@@ -136,3 +136,20 @@ button {
     width: 4%;
     z-index: 1;
 }
+
+.island {
+    position: absolute;
+    width: 14%;
+}
+
+.ship{
+    width: 4%;
+    z-index: 1;
+}
+
+#popup {
+    display: none;
+}
+.show {
+    display: flex !important; 
+}
