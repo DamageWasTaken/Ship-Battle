@@ -122,7 +122,7 @@ function distanceBetween(x1, y1, x2, y2) {
 function islandGenerator() {
     for (let i = 0; i < 4; i++) {
         var currentIsland = document.getElementById("island" + i);
-        currentIsland.src = "Assets/Island_" + Math.round(randint(1, 7)) + ".png";
+        currentIsland.src = "Island_" + Math.round(randint(1, 7)) + ".png";
         if (i == 0) {
             currentIsland.style.top = randint(0, windowHeight / 2 - currentIsland.offsetHeight) + "px";
             currentIsland.style.left = randint(0, windowWidth / 2 - currentIsland.offsetWidth) + "px";
