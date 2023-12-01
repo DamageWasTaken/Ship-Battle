@@ -47,6 +47,8 @@ body {
     width: auto !important;
     overflow: hidden;
     font-family: 'Arimo', sans-serif;
+    background-image: url(Assets/Ocean.png);
+    background-size: 600px;
     color: var(--text);
 }
 
@@ -104,6 +106,7 @@ button {
     padding: 0 6px 0 6px;
     width: 100%;
     justify-content: space-between;
+    z-index: 2;
 }
 
 #fireCannonsBTN:active {
@@ -122,6 +125,26 @@ button {
 .enemy {
     position: absolute;
     display: none;
+}
+
+.island {
+    position: absolute;
+    width: 14%;
+}
+
+.ship{
+    width: 4%;
+    z-index: 1;
+}
+
+.island {
+    position: absolute;
+    width: 14%;
+}
+
+.ship{
+    width: 4%;
+    z-index: 1;
 }
 
 #popup {
