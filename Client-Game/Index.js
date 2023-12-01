@@ -88,6 +88,7 @@ window.onload = () => {
     spawnAi();
     spawnAi();
     islandGenerator();
+    console.log(document.getElementById("island0").src.split('/').filter(e => e).slice(-1)[0])
 }   
 
 function Highscore() {
@@ -363,7 +364,7 @@ function movement(x, y, angle, elementId) {
             tetIslandJNr = 3;
         }
 
-        if (document.getElementById(tetIsland).src == "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_1.png") {
+        if (document.getElementById(tetIsland).src.split('/').filter(e => e).slice(-1)[0] == "Island_1.png") {
             if (distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y) < 50 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x + (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y) < 50) {
                 if (elementId == "player") {
                     console.log("Hit");
@@ -379,7 +380,7 @@ function movement(x, y, angle, elementId) {
                     enmeyHittingIslands.elementId = false;
                 }
             }
-        } else if (document.getElementById(tetIsland).src == "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_2.png") {
+        } else if (document.getElementById(tetIsland).src.split('/').filter(e => e).slice(-1)[0] == "Island_2.png") {
             if (distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y - (document.getElementById(tetIsland).offsetHeight / 4)) < 40 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y + (document.getElementById(tetIsland).offsetHeight / 4)) < 40 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x + (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y + (document.getElementById(tetIsland).offsetHeight / 4)) < 40) {
                 if (elementId == "player") {
                     console.log("Hit");
@@ -395,7 +396,7 @@ function movement(x, y, angle, elementId) {
                     enmeyHittingIslands.elementId = false;
                 }
             }
-        } else if (document.getElementById(tetIsland).src == "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_3.png") {
+        } else if (document.getElementById(tetIsland).src.split('/').filter(e => e).slice(-1)[0] == "Island_3.png") {
             if (distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y + (document.getElementById(tetIsland).offsetHeight / 4)) < 40 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x + (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y - (document.getElementById(tetIsland).offsetHeight / 4)) < 40) {
                 if (elementId == "player") {
                     console.log("Hit");
@@ -411,7 +412,7 @@ function movement(x, y, angle, elementId) {
                     enmeyHittingIslands.elementId = false;
                 }
             }
-        } else if (document.getElementById(tetIsland).src == "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_4.png") {
+        } else if (document.getElementById(tetIsland).src.split('/').filter(e => e).slice(-1)[0] == "Island_4.png") {
             if (disToIslands[tetIslandJNr] < 90) {
                 if (elementId == "player") {
                     console.log("Hit");
@@ -427,7 +428,7 @@ function movement(x, y, angle, elementId) {
                     enmeyHittingIslands.elementId = false;
                 }
             }
-        } else if (document.getElementById(tetIsland).src == "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_5.png") {
+        } else if (document.getElementById(tetIsland).src.split('/').filter(e => e).slice(-1)[0] == "Island_5.png") {
             if (disToIslands[tetIslandJNr] < 80) {
                 if (elementId == "player") {
                     console.log("Hit");
@@ -443,7 +444,7 @@ function movement(x, y, angle, elementId) {
                     enmeyHittingIslands.elementId = false;
                 }
             }
-        } else if (document.getElementById(tetIsland).src == "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_6.png") {
+        } else if (document.getElementById(tetIsland).src.split('/').filter(e => e).slice(-1)[0] == "Island_6.png") {
             if (distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y) < 50 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x + (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y) < 50) {
                 if (elementId == "player") {
                     console.log("Hit");
@@ -459,7 +460,7 @@ function movement(x, y, angle, elementId) {
                     enmeyHittingIslands.elementId = false;
                 }
             }
-        } else if (document.getElementById(tetIsland).src == "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_7.png") {
+        } else if (document.getElementById(tetIsland).src.split('/').filter(e => e).slice(-1)[0] == "Island_7.png") {
             if (disToIslands[tetIslandJNr] < 80 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x, getMidPoint(tetIsland).y + (document.getElementById(tetIsland).offsetHeight / 4)) < 80 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x, getMidPoint(tetIsland).y - (document.getElementById(tetIsland).offsetHeight / 4)) < 80) {
                 if (elementId == "player") {
                     console.log("Hit");
@@ -479,6 +480,12 @@ function movement(x, y, angle, elementId) {
         }
     } 
 }
+
+var penis = "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_1.png";
+
+var lastPart = penis.split('/').filter(e => e).slice(-1);
+
+console.log(penis.split('/').filter(e => e).slice(-1)[0]);
 
 function getMidPoint(elementId) {
     var element = document.querySelector('#' + elementId);
