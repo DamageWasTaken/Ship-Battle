@@ -33,6 +33,15 @@
                 Speed: <span id="speed"> </span> %
                 Angle: <span id="angle"> </span>
                 Highscore: <span id="highscore"> </span>
+                
             </p>
+            <button onclick="OpenPopUp()">Die</button>
+            <div id="popup">
+            <form action="insert.php" method="post">
+                <label for="search">Submit your score</label>
+                <input type="text" name="username" id="search" placeholder="Navn" >
+                <input id="highscore2" type="text" name="highscore" readonly> 
+                <button onclick="OpenPopUp()">Sumbit</button>
+            </div>
     </body>
 </html>

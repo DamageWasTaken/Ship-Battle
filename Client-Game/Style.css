@@ -123,3 +123,10 @@ button {
     position: absolute;
     display: none;
 }
+
+#popup {
+    display: none;
+}
+.show {
+    display: flex !important; 
+}

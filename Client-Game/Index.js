@@ -63,6 +63,13 @@ window.onload = () => {
 function Highscore() {
     highscore += 100;
     document.getElementById("highscore").innerHTML = highscore
+    document.getElementById("highscore2").value = highscore
+}
+
+
+function OpenPopUp() {
+    var popup = document.getElementById("popup")
+    popup.classList.toggle("show")
 }
 
 function rad(degrees) {
