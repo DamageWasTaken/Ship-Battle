@@ -162,30 +162,35 @@ function fierCannons() {
                 enemyState.enemy1 = false;
                 Highscore();
                 enemy1.style.display = "none";
+                spawnAi()
             }
             
             if (distanceBetween(cannonBall1Properties.x, cannonBall1Properties.y, getMidPoint("enemy2").x, getMidPoint("enemy2").y) < 60 || distanceBetween(cannonBall2Properties.x, cannonBall2Properties.y, getMidPoint("enemy2").x, getMidPoint("enemy2").y) < 60) {
                 enemyState.enemy2 = false;
                 Highscore();
                 enemy2.style.display = "none";
+                spawnAi()
             }
             
             if (distanceBetween(cannonBall1Properties.x, cannonBall1Properties.y, getMidPoint("enemy3").x, getMidPoint("enemy3").y) < 60 || distanceBetween(cannonBall2Properties.x, cannonBall2Properties.y, getMidPoint("enemy3").x, getMidPoint("enemy3").y) < 60) {
                 enemyState.enemy3 = false;
                 Highscore();
                 enemy3.style.display = "none";
+                spawnAi()
             }
             
             if (distanceBetween(cannonBall1Properties.x, cannonBall1Properties.y, getMidPoint("enemy4").x, getMidPoint("enemy4").y) < 60 || distanceBetween(cannonBall2Properties.x, cannonBall2Properties.y, getMidPoint("enemy4").x, getMidPoint("enemy4").y) < 60) {
                 enemyState.enemy4 = false;
                 Highscore();
                 enemy4.style.display = "none";
+                spawnAi()
             }
             
             if (distanceBetween(cannonBall1Properties.x, cannonBall1Properties.y, getMidPoint("enemy5").x, getMidPoint("enemy5").y) < 60 || distanceBetween(cannonBall2Properties.x, cannonBall2Properties.y, getMidPoint("enemy5").x, getMidPoint("enemy5").y) < 60) {
                 enemyState.enemy5 = false;
                 Highscore();
                 enemy5.style.display = "none";
+                spawnAi()
             }
             if (repeated == 200) {
                 cbia = false;
@@ -312,7 +317,7 @@ function movement(x, y, angle, elementId) {
     if (checkOutOfBounds(elementId) == "x" || checkOutOfBounds(elementId) == "y") {
         handleOutOfBounds(checkOutOfBounds(elementId), element, getMidPoint(elementId).x, getMidPoint(elementId).y);
     } else {
-
+        console.log(enmeyHittingIslands)
         if (elementId == "player") {
             if (playerHittingIsland == false) {
                 posX += x / speedDecrease;
@@ -321,29 +326,24 @@ function movement(x, y, angle, elementId) {
                 posX -=x / speedDecrease*10;
                 posY -= y / speedDecrease*10;
             }
-        } else if (elementId == "enemy1" || elementId == "enemy2" || elementId == "enemy3" || elementId == "enemy4" || elementId == "enemy5") {
-            if (enmeyHittingIslands.elementId == false) {
-                console.log("DUCKING PENIS")
-                x = +element.style.left.slice(0, -2) + x;
-                y = +element.style.top.slice(0, -2) + y;
-            } else if (enmeyHittingIslands.elementId == true) {
-                x = +element.style.left.slice(0, -2) - x;
-                y = +element.style.top.slice(0, -2) - y;
-            }
-            
-        }
-
-
-
-        if (elementId == "player") {
             element.style.top = posY + "px";
             element.style.left = posX + "px";
             element.style.transform = "rotate(" + rotation + "deg)";
-        } else {
+        } else if (elementId == "enemy1" || elementId == "enemy2" || elementId == "enemy3" || elementId == "enemy4" || elementId == "enemy5") {
+            if (enmeyHittingIslands.elementId == false) {   
+                x = +element.style.left.slice(0, -2) + x;
+                y = +element.style.top.slice(0, -2) + y;
+            } else if (enmeyHittingIslands.elementId == true) {
+                
+                x = +element.style.left.slice(0, -2) - x*10;
+                y = +element.style.top.slice(0, -2) - y*10;
+            }
             element.style.top = y + "px";
             element.style.left = x + "px";
-            element.style.transform = "rotate(" + angle + "deg)";
+            element.style.transform = "rotate(" + angle + 90 + "deg)";
+            
         }
+
         
         var disToIslands = [distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint("island0").x, getMidPoint("island0").y), distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint("island1").x, getMidPoint("island1").y), distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint("island2").x, getMidPoint("island2").y), distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint("island3").x, getMidPoint("island3").y)]
         var tetIsland;
@@ -378,6 +378,7 @@ function movement(x, y, angle, elementId) {
                 playerHittingIsland = false;
                 } else if (elementId == "enemy1" || elementId == "enemy2" || elementId == "enemy3" || elementId == "enemy4" || elementId == "enemy5") {
                     enmeyHittingIslands.elementId = false;
+                    console.log(enmeyHittingIslands)
                 }
             }
         } else if (document.getElementById(tetIsland).src.split('/').filter(e => e).slice(-1)[0] == "Island_2.png") {
