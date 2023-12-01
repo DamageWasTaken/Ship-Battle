@@ -47,7 +47,7 @@ body {
     width: auto !important;
     overflow: hidden;
     font-family: 'Arimo', sans-serif;
-    background-image: url(../Assets/Ocean.png);
+    background-image: url(Assets/Ocean.png);
     background-size: 600px;
     color: var(--text);
 }

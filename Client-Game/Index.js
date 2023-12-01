@@ -29,19 +29,19 @@ var cannonBall1Properties = {
     x : 0,
     y : 0,
     angle : 0
-}
+};
 var cannonBall2Properties = {
     x : 0,
     y : 0,
     angle : 0
-}
+};
 var enemyState = {
     enemy1 : false,
     enemy2 : false,
     enemy3 : false,
     enemy4 : false,
     enemy5 : false
-}
+};
 var playerAngle = 0;
 var canonBall1;
 var canonBall2;
@@ -56,6 +56,11 @@ var cbia = false;
 var windowHeight;
 var windowWidth;
 var loopsStated = 0;
+var timesLooped1 = 0;
+var timesLooped2 = 0;
+var timesLooped3 = 0;
+var timesLooped4 = 0;
+var timesLooped5 = 0;
 
 window.onload = () => {
     windowWidth = window.innerWidth;
@@ -83,6 +88,7 @@ window.onload = () => {
     spawnAi();
     spawnAi();
     islandGenerator();
+    console.log(document.getElementById("island0").src.split('/').filter(e => e).slice(-1)[0])
 }   
 
 function Highscore() {
@@ -106,7 +112,7 @@ function distanceBetween(x1, y1, x2, y2) {
 function islandGenerator() {
     for (let i = 0; i < 4; i++) {
         var currentIsland = document.getElementById("island" + i);
-        currentIsland.src = "../Assets/Island_" + Math.round(randint(1, 7)) + ".png";
+        currentIsland.src = "Assets/Island_" + Math.round(randint(1, 7)) + ".png";
         if (i == 0) {
             currentIsland.style.top = randint(0, windowHeight / 2 - currentIsland.offsetHeight) + "px";
             currentIsland.style.left = randint(0, windowWidth / 2 - currentIsland.offsetWidth) + "px";
@@ -220,7 +226,6 @@ function spawnAi() {
         enemy4.style.top = randint(0, windowHeight) + "px";
         enemy4.style.left = randint(0, windowWidth) + "px";
     }else if (enemyState.enemy5 == false) {
-        console.log("Sent5");
         enemy5.style.display = "inline";
         enemyState.enemy5 = true;
         enemy5.style.top = randint(0, windowHeight) + "px";
@@ -233,11 +238,13 @@ function moveAi() {
 
     if (enemyState.enemy1 == true) {
 
-        new_angle = randint(1, 360)
+        new_angle = randint(1, 360);
+        console.log("----------------------------------------------------");
+        console.log(new_angle);
         enemy1.style.transform = "rotate(" + new_angle + "deg)";
         
-        console.log(Math.cos(rad(new_angle)))
-        console.log(Math.sin(rad(new_angle + 180)))
+        console.log(Math.cos(rad(new_angle)));
+        console.log(Math.sin(rad(new_angle + 180)));
 
         
         repeatT("enemy1", 100, Math.cos(rad(new_angle)), Math.sin(rad(new_angle + 180)), new_angle);
@@ -245,44 +252,52 @@ function moveAi() {
 
     if (enemyState.enemy2 == true) {
 
-        new_angle = randint(1, 360)
+        new_angle = randint(1, 360);
+        console.log("----------------------------------------------------");
+        console.log(new_angle);
         enemy2.style.transform = "rotate(" + new_angle + "deg)";
         
-        console.log(Math.cos(rad(new_angle)))
-        console.log(Math.sin(rad(new_angle + 180)))
+        console.log(Math.cos(rad(new_angle)));
+        console.log(Math.sin(rad(new_angle + 180)));
 
         
         repeatT("enemy2", 100, Math.cos(rad(new_angle)), Math.sin(rad(new_angle + 180)), new_angle);
     }
     if (enemyState.enemy3 == true) {
 
-        new_angle = randint(1, 360)
+        new_angle = randint(1, 360);
+        console.log("----------------------------------------------------");
+        console.log(new_angle);
         enemy3.style.transform = "rotate(" + new_angle + "deg)";
         
-        console.log(Math.cos(rad(new_angle)))
-        console.log(Math.sin(rad(new_angle + 180)))
+        console.log(Math.cos(rad(new_angle)));
+        console.log(Math.sin(rad(new_angle + 180)));
 
         
         repeatT("enemy3", 100, Math.cos(rad(new_angle)), Math.sin(rad(new_angle + 180)), new_angle);
     }
     if (enemyState.enemy4 == true) {
 
-        new_angle = randint(1, 360)
+        new_angle = randint(1, 360);
+        console.log("----------------------------------------------------");
+        console.log(new_angle);
         enemy4.style.transform = "rotate(" + new_angle + "deg)";
         
-        console.log(Math.cos(rad(new_angle)))
-        console.log(Math.sin(rad(new_angle + 180)))
+        console.log(Math.cos(rad(new_angle)));
+        console.log(Math.sin(rad(new_angle + 180)));
 
         
         repeatT("enemy4", 100, Math.cos(rad(new_angle)), Math.sin(rad(new_angle + 180)), new_angle);
     }
     if (enemyState.enemy5 == true) {
 
-        new_angle = randint(1, 360)
+        new_angle = randint(1, 360);
+        console.log("----------------------------------------------------");
+        console.log(new_angle);
         enemy5.style.transform = "rotate(" + new_angle + "deg)";
         
-        console.log(Math.cos(rad(new_angle)))
-        console.log(Math.sin(rad(new_angle + 180)))
+        console.log(Math.cos(rad(new_angle)));
+        console.log(Math.sin(rad(new_angle + 180)));
 
         
         repeatT("enemy5", 100, Math.cos(rad(new_angle)), Math.sin(rad(new_angle + 180)), new_angle);
@@ -349,7 +364,7 @@ function movement(x, y, angle, elementId) {
             tetIslandJNr = 3;
         }
 
-        if (document.getElementById(tetIsland).src == "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_1.png") {
+        if (document.getElementById(tetIsland).src.split('/').filter(e => e).slice(-1)[0] == "Island_1.png") {
             if (distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y) < 50 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x + (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y) < 50) {
                 if (elementId == "player") {
                     console.log("Hit");
@@ -366,7 +381,7 @@ function movement(x, y, angle, elementId) {
                     console.log(enmeyHittingIslands)
                 }
             }
-        } else if (document.getElementById(tetIsland).src == "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_2.png") {
+        } else if (document.getElementById(tetIsland).src.split('/').filter(e => e).slice(-1)[0] == "Island_2.png") {
             if (distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y - (document.getElementById(tetIsland).offsetHeight / 4)) < 40 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y + (document.getElementById(tetIsland).offsetHeight / 4)) < 40 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x + (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y + (document.getElementById(tetIsland).offsetHeight / 4)) < 40) {
                 if (elementId == "player") {
                     console.log("Hit");
@@ -382,7 +397,7 @@ function movement(x, y, angle, elementId) {
                     enmeyHittingIslands.elementId = false;
                 }
             }
-        } else if (document.getElementById(tetIsland).src == "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_3.png") {
+        } else if (document.getElementById(tetIsland).src.split('/').filter(e => e).slice(-1)[0] == "Island_3.png") {
             if (distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y + (document.getElementById(tetIsland).offsetHeight / 4)) < 40 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x + (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y - (document.getElementById(tetIsland).offsetHeight / 4)) < 40) {
                 if (elementId == "player") {
                     console.log("Hit");
@@ -398,7 +413,7 @@ function movement(x, y, angle, elementId) {
                     enmeyHittingIslands.elementId = false;
                 }
             }
-        } else if (document.getElementById(tetIsland).src == "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_4.png") {
+        } else if (document.getElementById(tetIsland).src.split('/').filter(e => e).slice(-1)[0] == "Island_4.png") {
             if (disToIslands[tetIslandJNr] < 90) {
                 if (elementId == "player") {
                     console.log("Hit");
@@ -414,7 +429,7 @@ function movement(x, y, angle, elementId) {
                     enmeyHittingIslands.elementId = false;
                 }
             }
-        } else if (document.getElementById(tetIsland).src == "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_5.png") {
+        } else if (document.getElementById(tetIsland).src.split('/').filter(e => e).slice(-1)[0] == "Island_5.png") {
             if (disToIslands[tetIslandJNr] < 80) {
                 if (elementId == "player") {
                     console.log("Hit");
@@ -430,7 +445,7 @@ function movement(x, y, angle, elementId) {
                     enmeyHittingIslands.elementId = false;
                 }
             }
-        } else if (document.getElementById(tetIsland).src == "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_6.png") {
+        } else if (document.getElementById(tetIsland).src.split('/').filter(e => e).slice(-1)[0] == "Island_6.png") {
             if (distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x - (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y) < 50 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x + (document.getElementById(tetIsland).offsetWidth / 4), getMidPoint(tetIsland).y) < 50) {
                 if (elementId == "player") {
                     console.log("Hit");
@@ -446,7 +461,7 @@ function movement(x, y, angle, elementId) {
                     enmeyHittingIslands.elementId = false;
                 }
             }
-        } else if (document.getElementById(tetIsland).src == "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_7.png") {
+        } else if (document.getElementById(tetIsland).src.split('/').filter(e => e).slice(-1)[0] == "Island_7.png") {
             if (disToIslands[tetIslandJNr] < 80 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x, getMidPoint(tetIsland).y + (document.getElementById(tetIsland).offsetHeight / 4)) < 80 || distanceBetween(getMidPoint(elementId).x, getMidPoint(elementId).y, getMidPoint(tetIsland).x, getMidPoint(tetIsland).y - (document.getElementById(tetIsland).offsetHeight / 4)) < 80) {
                 if (elementId == "player") {
                     console.log("Hit");
@@ -464,12 +479,14 @@ function movement(x, y, angle, elementId) {
             }
 
         }
-
-
-
-
-} 
+    } 
 }
+
+var penis = "file:///c%3A/Users/olexc/Documents/Ship-Battle/Assets/Island_1.png";
+
+var lastPart = penis.split('/').filter(e => e).slice(-1);
+
+console.log(penis.split('/').filter(e => e).slice(-1)[0]);
 
 function getMidPoint(elementId) {
     var element = document.querySelector('#' + elementId);
@@ -623,11 +640,6 @@ function repeatT(elementToBeRepeated, repeatAmount, x, y, angle) {
             movement(x_relative, y_relative, angle_in_degrees, elementToBeRepeated);
         }, 10);
     } else {
-        var timesLooped1 = 0;
-        var timesLooped2 = 0;
-        var timesLooped3 = 0;
-        var timesLooped4 = 0;
-        var timesLooped5 = 0;
         loopsStated++;
         var currentInterval = loopsStated;
         if (currentInterval == 1) {
@@ -656,14 +668,14 @@ function repeatT(elementToBeRepeated, repeatAmount, x, y, angle) {
                 timesLooped3++;
                 if (timesLooped3 == repeatAmount) {
                     timesLooped3 = 0;
-                    clearInterval(interval_3);
+                    clearInterval(interval_3);  
                     loopsStated--;
                 }
             }, 10);
         } else if (currentInterval == 4) {
             interval_4 = setInterval(() => {
                 movement(x, y, angle, elementToBeRepeated);
-                timesLooped4++;
+                timesLooped4++
                 if (timesLooped4 == repeatAmount) {
                     timesLooped4 = 0;
                     clearInterval(interval_4);
