@@ -122,6 +122,15 @@ button {
     transition: opacity 1s;
 }
 
+#blurBg {
+    background-image: url(Ocean.png);
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    background-size: 600px;
+    width: 100%;
+    height: 100%;
+}
+
 .cannonBall {
     position: absolute;
 }
@@ -152,8 +161,53 @@ button {
 }
 
 #popup {
+    position: absolute;
     display: none;
+    z-index: 10;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
+
+#innerContainer {
+    position: absolute;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    z-index: 1;
+    background-color: white;
+    border-radius: 6px;
+    display: flex;
+    width: 350px;
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.popupText {
+    color: #000;
+    line-height: 0;
+}
+
+#submitButton {
+    margin-top: 6px;
+    border: 2px solid black;
+    border-radius: 6px;
+}
+
+#form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .show {
     display: flex !important; 
 }

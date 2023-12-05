@@ -37,14 +37,21 @@
                 Angle: <span id="angle"> </span>
                 Highscore: <span id="highscore"> </span>
                 
-            </p>
-            <button onclick="OpenPopUp()">Die</button>
+            </p>    
             <div id="popup">
-            <form action="insert.php" method="post">
-                <label for="search">Submit your score</label>
-                <input type="text" name="username" id="search" placeholder="Navn" >
-                <input id="highscore2" type="text" name="highscore" readonly> 
-                <button onclick="OpenPopUp()">Sumbit</button>
+                <div id="innerContainer">
+                    <p class="popupText" >Game Over!</p>
+                    <div class="textContainer">
+                        <p class="popupText">Navn</p>
+                        <p class="popupText">Score</p>
+                    </div>
+                    <form id="form" action="insert.php" method="post">
+                        <input type="text" name="username" id="search" placeholder="Navn" >
+                        <input id="highscore" type="text" value="0" readonly><br>
+                        <button id="submitButton" onclick="OpenPopUp()">Sumbit</button>
+                    </form>
+                </div>
+                <div id="blurBg"></div>
             </div>
     </body>
 </html>

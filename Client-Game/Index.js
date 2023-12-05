@@ -63,6 +63,7 @@ var timesLooped3 = 0;
 var timesLooped4 = 0;
 var timesLooped5 = 0;
 
+
 window.onload = () => {
     windowWidth = window.innerWidth;
     windowHeight = window.innerHeight;
@@ -92,12 +93,25 @@ window.onload = () => {
     gameLoop = setInterval(() => {
         moveAi();
     }, 3000)
+    setTimeout(() => {
+        endGame();
+      }, "1000");
+      
+      
+      
 }   
+
+
+function endGame() {
+    OpenPopUp();
+    clearInterval(gameLoop);
+    
+}
+
 
 function Highscore() {
     highscore += 100;
-    document.getElementById("highscore").innerHTML = highscore
-    document.getElementById("highscore2").value = highscore
+    document.getElementById("highscore").value = highscore
 }
 
 
